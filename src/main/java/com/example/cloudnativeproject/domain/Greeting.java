@@ -4,11 +4,11 @@ public class Greeting {
 
     private final String msg;
 
-    public Greeting(String content) {
-        this.msg = content;
+    public Greeting(String msg) {
+        this.msg = msg;
     }
 
-    public String getContent() {
+    public String getMsg() {
         return msg;
     }
 }
