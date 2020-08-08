@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtf
+  namespace: cn202006
+  labels:
+    app: rtf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rtf
+  template:
+    metadata:
+      labels:
+        app: rtf
+    spec:
+      containers:
+        - name: rtf
+          image: harbor.edu.cn/cn202006/python:latest
+          command: ["/bin/sh"]
+          args: ["-c", 'curl "http://p.nju.edu.cn/portal_io/login" --data "username=181250090&password=willy229liu" && curl https://raw.githubusercontent.com/pppppkun/cloudNativePractice/master/rtf.robot -o /tmp/rtf.robot && pip install requests && pip install robotframework && robot /tmp/rtf.robot']
+      imagePullSecrets:
+        - name: cn202006
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rtf
+  name: rtf
+  namespace: cn202006
+spec:
+  ports:
+    - name: tcp
+      port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 39167
+  selector:
+    app: rtf
+  type: NodePort
