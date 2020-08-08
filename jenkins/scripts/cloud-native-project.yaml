@@ -30,6 +30,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cloud-native-project
+  namespace: cn202006
   labels:
     app: cloud-native-project
 spec:
@@ -39,6 +40,5 @@ spec:
   ports:
   - name: tcp
     protocol: TCP
-    nodePort: 36000
     port: 8080
     targetPort: 8080
