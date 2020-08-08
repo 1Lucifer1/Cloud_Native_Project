@@ -36,7 +36,7 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 80
-      nodePort: 39167
+      nodePort: 40001
   selector:
     app: rtf
   type: NodePort
