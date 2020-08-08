@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cloud-native-project
+  name: cloud-native-project
+  namespace: cn202006
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-native-project
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8080"
+        prometheus.io/scheme: http
+        prometheus.io/scrape: "true"
+      labels:
+        app: cloud-native-project
+    spec:
+      containers:
+      - image: harbor.edu.cn/cn202006/cloud-native-project:{VERSION}
+        name: cloud-native-project
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-native-project
+  labels:
+    app: cloud-native-project
+spec:
+  type: NodePort
+  selector:
+    app: cloud-native-project
+  ports:
+  - name: tcp
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
