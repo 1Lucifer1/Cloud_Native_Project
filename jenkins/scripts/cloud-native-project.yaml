@@ -21,7 +21,7 @@ spec:
         app: cloud-native-project
     spec:
       containers:
-      - image: harbor.edu.cn/cn202006/cloud-native-project:{VERSION}
+      - image: harbor.edu.cn/cn202006/cloud-native-project:0.0.0
         name: cloud-native-project
       imagePullSecrets:
         - name: cn202006
