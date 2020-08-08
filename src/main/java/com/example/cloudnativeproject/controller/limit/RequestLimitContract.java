@@ -50,7 +50,7 @@ public class RequestLimitContract {
 //        System.out.println(url);
 //        System.out.println(rateLimiter.count());
 //        System.out.println(rateLimiter.time());
-        String key = "req_limit_".concat(url);
+
 
 //        Jedis jedis = new Jedis("localhost");
 //        if(jedis.get(key) == null){
@@ -60,7 +60,8 @@ public class RequestLimitContract {
 //        }
 //        int count = Integer.parseInt(jedis.get(key));
 
-        if (!redisTemplate.containsKey(key)) {
+        String key = "req_limit_".concat(url); //hash的key
+        if (!redisTemplate.containsKey(key)) { //接口未访问过
             redisTemplate.put(key, 1);
             System.out.println("1:" + key);
         } else {
@@ -85,6 +86,7 @@ public class RequestLimitContract {
         }
         return joinPoint.proceed();
     }
+
     private RequestLimit getRequestLimit(final JoinPoint joinPoint) {
         Method[] methods = joinPoint.getTarget().getClass().getDeclaredMethods();
         String name = joinPoint.getSignature().getName();

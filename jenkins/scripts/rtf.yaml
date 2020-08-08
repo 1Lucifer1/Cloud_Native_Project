@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: rtf
-          image: harbor.edu.cn/cn202006/python:latest
+          image: python:latest
           command: ["/bin/sh"]
           args: ["-c", 'curl "http://p.nju.edu.cn/portal_io/login" --data "username=181250090&password=willy229liu" && curl https://raw.githubusercontent.com/1Lucifer1/Cloud_Native_Project/master/rtf.robot -o /tmp/rtf.robot && pip install requests && pip install robotframework && robot /tmp/rtf.robot']
       imagePullSecrets:
